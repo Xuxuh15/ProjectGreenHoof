@@ -26,6 +26,13 @@ const performanceCoachSchema = new Schema({
         enum: ['PLAYER','PERFORMANCECOACH','COACH','ASSISTANTCOACH','FYSIO'],
         default: 'PERFORMANCECOACH'
     }, 
+    credential:{
+        type: String,
+        required: true,
+        uppercase: true,
+        enum: ['ADMIN','STAFF','PLAYER']
+
+    }
 
 
 

@@ -1,6 +1,7 @@
 const { default: mongoose } = require('mongoose');
 const mognoose = require('mongoose'); 
 
+//database connection function
 const dbConnect = async()=>{
     try{
         await mongoose.connect(process.env.MONGODB_URL,{
@@ -13,4 +14,5 @@ const dbConnect = async()=>{
     }
 }
 
+//initialize database connection
 dbConnect(); 

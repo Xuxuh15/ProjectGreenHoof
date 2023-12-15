@@ -26,6 +26,14 @@ const playerSchema = new Schema({
         enum: ['PLAYER','PERFORMANCECOACH','COACH','ASSISTANTCOACH','FYSIO'],
         default: 'PLAYER'
     }, 
+    credential:{
+        type: String,
+        required: true,
+        uppercase: true,
+        enum: ['ADMIN','STAFF','PLAYER'],
+        default: 'PLAYER'
+
+    },
     exercisePrograms:[{
         type: Schema.Types.ObjectId,
         ref: 'ExerciseProgram',
