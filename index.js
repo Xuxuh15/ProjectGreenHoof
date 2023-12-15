@@ -1,7 +1,11 @@
 //imports
+require('dotenv').config(); 
 const app = require("./app/app"); 
 const http = require('http'); 
-const PORT =  3045; 
+const PORT =  process.env.PORT || 3045; 
+
+//initiates database connection whenever server is started
+require('./config/dbconnect'); 
 
 
 //creates new server.Uses app to process requests and send responses
@@ -14,3 +18,5 @@ server.listen(PORT, (err)=>{
     }
     console.log(`Server is running on ${PORT}`); 
 }); 
+
+

@@ -4,9 +4,9 @@
   "description": "FC Dordrecht Player Gym Program API",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon index.js"
+    "server": "nodemon index.js",
+    "start": "nodemon index.js"
   },
   "author": "John Hilton",
   "license": "ISC",
@@ -14,6 +14,7 @@
     "body-parser": "^1.20.2",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "mongodb": "^6.3.0",
     "mongoose": "^8.0.3"
   },
   "devDependencies": {
