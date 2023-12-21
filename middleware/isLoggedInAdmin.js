@@ -1,9 +1,8 @@
 const verifyToken = require('../utils/verifyToken');
-const AsyncHandler = require('express-async-handler'); 
 //require Player model---access to database
-const Player = require('../model/Players/Player');
+const Admin = require('../model/Admin/Admin');
 
-const isLoggedInPlayer = AsyncHandler(async (req, res, next)=>{
+const isLoggedInAdmin = async (req, res, next)=>{
     //get token from header
     const headerObj = req.headers; 
     //optional chaining 
@@ -12,7 +11,7 @@ const isLoggedInPlayer = AsyncHandler(async (req, res, next)=>{
     const verifiedToken = verifyToken(token);
     if(verifiedToken){ 
         //find Player --- exclude password in returned user
-        const user = await Player.findById(verifiedToken.id).select('name email role position');
+        const user = await Admin.findById(verifiedToken.id).select('name email role active');
         //saver user in request body 
         req.userAuth = user;
         //move onto next middleware. Automatically passes request object
@@ -23,6 +22,6 @@ const isLoggedInPlayer = AsyncHandler(async (req, res, next)=>{
         const err = new Error('Invalid token');
         next(err);
     } 
-});
+};
 
-module.exports = isLoggedInPlayer; 
+module.exports = isLoggedInAdmin; 

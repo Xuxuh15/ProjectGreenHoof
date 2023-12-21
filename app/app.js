@@ -6,10 +6,16 @@ const bodyParser = require('body-parser');
 const path = require('path'); 
 
 
+
+
 const app = express(); 
+
+//Routers
+const adminRouter = require('../routes/Staff/adminRouter');
 
 
 //Middlewares
+
 //Log the routes to terminal
 app.use(morgan('dev')); 
 //Turn incoming payload into JSON file
@@ -18,6 +24,12 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({extended: false})); 
 //serve static files from public folder
 app.use(express.static(path.join('../',__dirname,'public'))); 
+
+
+//Admin routes
+app.use('/api/v1/admin', adminRouter); 
+
+
 
 
 

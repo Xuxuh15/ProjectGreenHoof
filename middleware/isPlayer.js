@@ -12,7 +12,7 @@ const isPlayer = AsyncHandler(async (req, res, next)=>{
     }
     
     //check if user is a teacher
-    if(userFound?.role === "Student"){
+    if(userFound?.role === "PLAYER"){
         next();
     }
     else{

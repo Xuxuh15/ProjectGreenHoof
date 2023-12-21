@@ -26,14 +26,6 @@ const playerSchema = new Schema({
         enum: ['PLAYER','PERFORMANCECOACH','COACH','ASSISTANTCOACH','FYSIO'],
         default: 'PLAYER'
     }, 
-    credential:{
-        type: String,
-        required: true,
-        uppercase: true,
-        enum: ['ADMIN','STAFF','PLAYER'],
-        default: 'PLAYER'
-
-    },
     exercisePrograms:[{
         type: Schema.Types.ObjectId,
         ref: 'ExerciseProgram',
@@ -46,21 +38,6 @@ const playerSchema = new Schema({
         required: true, 
         enum: ['GK','CB','LB','RB','CDM','MF','CAM','ST','WG']
     }, 
-    playerNotes:[{
-        type: Schema.Types.ObjectId, 
-        ref: 'PlayerNote', 
-        default: []
-    }], 
-    exerciseRecords:[{
-        type: Schema.Types.ObjectId,
-        ref: 'ExerciseRecord',
-        default: []
-    }], 
-    personalRecords: [{
-        type: Schema.Types.ObjectId,
-        ref: 'PersonalRecord',
-        default: []
-    }], 
     fitnessLevel:{
         type: String,
         required: true,
@@ -70,7 +47,35 @@ const playerSchema = new Schema({
     }
     
 
-},{timestamp: true}); 
+},{
+    timestamp: true,
+    //allow virtuals to be parsed into JSON and Object
+    toJSON: {virtuals: true},
+    toObject: {virtuals: true}
+
+}); 
+
+//define virtuals
+//when populating virtuals we can always add additonal queries to filter results
+//links player to their personal notes. Allows us to later populate a players notes
+playerSchema.virtual('playerNotes',{
+    ref: 'PlayerNote',
+    localField: '_id',
+    foreignField: 'player'
+}); 
+//links player to their exercise records. Allows us to later populatr a player's exercise records. 
+playerSchema.virtual('exerciseRecords',{
+    ref: 'ExerciseRecord',
+    localField: '_id',
+    foreignField: 'player',
+    justOne: false
+}); 
+//links player to their personal record. Allows us to later populate a player's personal records. 
+playerSchema.virtual('personalRecords',{
+    ref: 'PersonalRecord',
+    localField: '_id',
+    foreignField: 'player'
+}); 
 
 const Player = mongoose.model('Player', playerSchema);
 module.exports = Player; 

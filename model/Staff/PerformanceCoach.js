@@ -25,18 +25,19 @@ const performanceCoachSchema = new Schema({
         uppercase: true, 
         enum: ['PLAYER','PERFORMANCECOACH','COACH','ASSISTANTCOACH','FYSIO'],
         default: 'PERFORMANCECOACH'
-    }, 
-    credential:{
-        type: String,
-        required: true,
-        uppercase: true,
-        enum: ['ADMIN','STAFF','PLAYER']
-
     }
+    
+},{timestamp: true,
+    toJSON: {virtuals: true},
+    toObject: {virtuals: true}
+});
 
-
-
-},{timestamp: true}); 
+performanceCoachSchema.virtual('ExerciseEntry',{
+    ref: 'ExerciseEntry', 
+    localField: "_id",
+    foreignField: 'createdBy',
+    justOne: false
+}); 
 
 const PerformanceCoach = mongoose.model('PerformanceCoach', performanceCoachSchema); 
 module.exports = PerformanceCoach; 

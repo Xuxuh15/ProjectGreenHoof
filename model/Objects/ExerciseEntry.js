@@ -39,10 +39,15 @@ const exerciseEntrySchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'PersonalRecord'
     }], 
+    createdBy:{
+        type: Schema.Types.ObjectId,
+        ref: 'PerformanceCoach',
+        required: true
+    }, 
     hidden:{
         type: Boolean, 
         required: true, 
-        default: true
+        default: false
     }
 
 },
